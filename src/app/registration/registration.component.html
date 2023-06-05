@@ -1,0 +1,139 @@
+<main>
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>school</mat-icon>
+    </button>
+    <span>Student Registration</span>
+    <span class="example-spacer"></span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form [formGroup]="registerForm" (ngSubmit)="register()" >
+    <div>
+        <section class="studentReg">
+            <section>
+              <div>
+                <table class="example-full-width" cellspacing="0">
+                  <tr>
+                    <!-- first name -->
+                    <div>
+                      <mat-form-field class="example-full-width">
+                        <mat-label>First name</mat-label>
+                        <input matInput name="fname" formControlName="fname"/>
+                        <mat-error *ngIf="this.registerForm.get('fname')?.errors&&this.registerForm.get('fname')?.touched" >
+                          please enter the value
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <!-- last name -->
+                    <div>
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Last name</mat-label>
+                        <input matInput name="lname" formControlName="lname" />
+                        <mat-error *ngIf="this.registerForm.get('lname')?.errors&&this.registerForm.get('lname')?.touched" >
+                          please enter the value
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </tr>
+                </table>
+              </div>
+              <!-- address -->
+              <div>
+                <mat-form-field>
+                  <mat-label>Address</mat-label>
+                  <textarea matInput name="address" formControlName="address" ></textarea>
+                  <mat-error *ngIf="this.registerForm.get('address')?.errors&&this.registerForm.get('address')?.touched" >
+                    please enter the value
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <!-- mobile -->
+              <div>
+                <mat-form-field class="example-full-width">
+                  <mat-label>mobile</mat-label>
+                  <!-- <span matPrefix>+91 &nbsp;</span> -->
+                  <input type="tel" matInput placeholder="555-555-1234" name="mobile" formControlName="mobile" />
+                  <mat-error *ngIf="this.registerForm.get('mobile')?.errors&&this.registerForm.get('mobile')?.touched" >
+                    please enter the value
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </section>
+            <section>
+              <!-- e-mail -->
+              <div>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Email</mat-label>
+                  <input name="email" formControlName="email" type="email" matInput placeholder="Ex. pat@example.com" />
+                  <mat-error *ngIf="this.registerForm.get('email')?.errors&&this.registerForm.get('email')?.touched" >
+                    please enter the value
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <!-- gender -->
+              <div>
+                <div class="gender-option">
+                    <label id="example-radio-group-label">Gender :</label>
+                    <br>
+                    <mat-radio-group
+                      aria-labelledby="example-radio-group-label"
+                      class="example-radio-group"
+                      [(ngModel)]="favoriteSeason" formControlName="gender">
+                      <mat-radio-button class="example-radio-button"
+                        *ngFor="let season of seasons"
+                        [value]="season">
+                        {{ season }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="this.registerForm.get('gender')?.errors&&this.registerForm.get('gender')?.touched" >
+                      please choose the value
+                    </mat-error>
+                </div>
+              </div>
+              <br>
+              <!-- dob -->
+              <div>
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input name="dob" formControlName="dob" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="this.registerForm.get('dob')?.errors&&this.registerForm.get('dob')?.touched" >
+                      please enter the value
+                    </mat-error>
+                </mat-form-field>          
+              </div>
+              <!-- course -->
+              <div>
+                <mat-form-field>
+                    <mat-label>Select me</mat-label>
+                    <mat-select formControlName="course">
+                      <mat-option *ngFor="let course of courses" [value]="course.value">{{course.value}}</mat-option>
+                      <!-- <mat-option value="option2">Computer Science</mat-option>
+                      <mat-option value="option3">Humanities</mat-option> -->
+                    </mat-select>
+                    <mat-error *ngIf="this.registerForm.get('course')?.errors&&this.registerForm.get('course')?.touched" >
+                      please Choose the value
+                    </mat-error>
+                </mat-form-field>
+              </div>
+            </section>
+        </section>
+        <mat-divider></mat-divider>
+        <section class="sub-buttons">
+            <button mat-raised-button color="warn" type="button" routerLink="">Close</button>
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+        </section>
+    </div>
+  </form>
+  <section class="spinner" *ngIf="isLoading">
+    <div class="hollow-dots-spinner" :style="spinnerStyle">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </section>
+</main>
